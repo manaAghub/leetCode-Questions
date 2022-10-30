@@ -13,14 +13,11 @@ using namespace std;
 #define db3(x, y, z)          cout<<"["<<#x<<":" <<x<<" | "<<#y<<": "<<y<<" | "<<#z<<": "<<z<<"]\n";
 #define db4(a, b, c, d)       cout<<"["<<#a<<": "<<a<<" | "<<#b<<": "<<b<<" | "<<#c<<": "<<c<<" | "<<#d<<": "<<d<<"]\n";
  
- 
- 
 int main(){
     fio;
     ll T=1;
     cin>>T;
     while(T--){
- 
         ll n,q;
         cin>>n>>q;
  
@@ -79,9 +76,6 @@ int main(){
  
             cout<<sum<<"\n";
  
- 
- 
-        // cout<<"\n";
     }
     
     return 0;
