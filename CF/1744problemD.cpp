@@ -13,93 +13,69 @@ using namespace std;
 #define db3(x, y, z)          cout<<"["<<#x<<":" <<x<<" | "<<#y<<": "<<y<<" | "<<#z<<": "<<z<<"]\n";
 #define db4(a, b, c, d)       cout<<"["<<#a<<": "<<a<<" | "<<#b<<": "<<b<<" | "<<#c<<": "<<c<<" | "<<#d<<": "<<d<<"]\n";
  
- 
-ll fp(ll n){
-    int res = 0;
-    while(n % (ll)pow(2, res) == 0){
-        res++;
-    }
-    return res - 1;
-}
- 
- 
- 
 int main(){
     fio;
     ll T=1;
     cin>>T;
     while(T--){
- 
-        ll n;
-        cin>>n;
+        ll n,q;
+        cin>>n>>q;
  
         vector<ll> v(n);
+ 
+        ll sum = 0;
+ 
+        ll odds = 0;
+        ll evens = 0;
+ 
         for(int i=0;i<n;i++){
             cin>>v[i];
+            sum+=v[i];
+ 
+            if(v[i]%2)odds++;
+            else evens++;
         }
  
-        ll max2 = log2(n);
- 
-        ll required = n;
- 
-        ll present = 0;
- 
-        ll maxgive = 0;
- 
-        for(int i=0;i<n;i++){
-            present += fp(v[i]);
-            maxgive += fp(i+1);
+        vector<pair<ll,ll>> x(q);
+        ll t1,t2;
+        for(int i=0;i<q;i++){
+            cin>>t1>>t2;
+            x[i] = {t1, t2};
         }
  
-        // db1(present);
+        for(int i=0;i<q;i++){
  
-        required -= present;
+            pair<ll,ll> ele = x[i];
  
-        // calculate till required is not 0 or max2 is not 0;
+            if(ele.first==0){
  
-        ll temp = max2;
+                if(ele.second % 2==0){
+                    // even remains evens...
+                    // add even times
+                    sum += evens*ele.second;
+                } else {
+                    // evens becomes odd.
+                    sum += evens*ele.second;
+                    odds += evens;
+                    evens = 0;
  
-        ll ans = 0;
- 
-        // max we can give...
- 
-        if(required - maxgive > 0){
-            cout<<-1;
-        } else {
- 
-            while(temp>0 && required>0){
- 
-                // ans++;
- 
-                // give maximum and subtract that from temp.
- 
-                // how many pow(2, temp) you can give.
- 
-                ll mul = n/pow(2, temp);
- 
-                ll xx = (mul+1)/2;
- 
- 
-                while(xx>0  && required>0){
-                    ans++;
-                    xx--;
-                    required -= temp;
                 }
  
-                temp--;
+            } else {
+ 
+                if(ele.second % 2 == 0){
+ 
+                    sum+=odds*ele.second;
+ 
+                } else {
+                    sum +=odds*ele.second;
+                    evens+=odds;
+                    odds = 0;
+                }
             }
  
+            cout<<sum<<"\n";
  
- 
-            cout<<ans;
- 
-        }
-        
-        
- 
- 
- 
-        cout<<"\n";
     }
     
     return 0;
